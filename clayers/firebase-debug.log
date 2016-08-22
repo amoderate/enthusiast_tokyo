@@ -1,0 +1,51 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase database:set /clayers/curry.geojson https://obsessed-tokyo.firebaseio.com/
+[debug] CLI Version:  3.0.7
+[debug] Platform:     darwin
+[debug] Node Version: v6.4.0
+[debug] Time:         Sun Aug 21 2016 23:23:10 GMT+0900 (JST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/obsessed-tokyo 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/obsessed-tokyo/tokens 
+[debug] <<< HTTP RESPONSE 200
+[debug] Error: ENOENT: no such file or directory, open 'https://obsessed-tokyo.firebaseio.com/'
+    at Error (native)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase database:set / clayers/curry.geojson https://obsessed-tokyo.firebaseio.com/
+[debug] CLI Version:  3.0.7
+[debug] Platform:     darwin
+[debug] Node Version: v6.4.0
+[debug] Time:         Sun Aug 21 2016 23:24:24 GMT+0900 (JST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/obsessed-tokyo 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/obsessed-tokyo/tokens 
+[debug] <<< HTTP RESPONSE 200
+[debug] Error: ENOENT: no such file or directory, open 'clayers/curry.geojson'
+    at Error (native)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /usr/local/bin/node /usr/local/bin/firebase database:set / clayers/combined.geojson https://obsessed-tokyo.firebaseio.com/
+[debug] CLI Version:  3.0.7
+[debug] Platform:     darwin
+[debug] Node Version: v6.4.0
+[debug] Time:         Sun Aug 21 2016 23:30:47 GMT+0900 (JST)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase"]
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/obsessed-tokyo 
+[debug] <<< HTTP RESPONSE 200
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/obsessed-tokyo/tokens 
+[debug] <<< HTTP RESPONSE 200
+[debug] Error: ENOENT: no such file or directory, open 'clayers/combined.geojson'
+    at Error (native)
+[error] 
+[error] Error: An unexpected error has occurred.
