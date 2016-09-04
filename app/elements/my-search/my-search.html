@@ -1,0 +1,139 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
+<dom-module id="my-search">
+
+  <template>
+  <style>
+    :host {
+      display: block;
+    }
+
+
+    paper-card {
+      border-radius: 2px;
+      height: 100%;
+      padding: 16px 0 16px 0;
+      width: calc(98.66% - 16px);
+      margin: 16px 16px;
+      background: white;
+    }
+
+    paper-card a {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+
+      text-decoration: none;
+      color: #7DA1BF;
+      font-family: 'Roboto', 'Noto', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      min-height: 48px;
+      padding: 0 16px;
+    }
+    span {
+      @apply(--paper-font-body1);
+    }
+    </style>
+
+    <template is="dom-repeat" id="itemList" items="{{items}}" as="item" filter="{{computeFilter(searchString)}}">
+      <span>
+      <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
+        <div class="card-content">
+        </div>
+        <div class="card-actions">
+            <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
+            <paper-button focused raised on-click="toggleSelection"> {{item.english_name}} {{item.japanese_name}}</paper-button>
+            </a>
+        </div>
+      </paper-card>
+    </span>
+    </template>
+
+    <array-selector id="selector" items="{{items}}" selected="{{selected}}" multi toggle></array-selector>
+  </div>
+
+  </template>
+
+  <script>
+
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-search',
+
+        properties: {
+          items: {
+            type: Array,
+            notify: true
+          },
+
+          shoptypes:{
+            type: String,
+            notify: true
+          },
+
+          searchString: {
+            type: String,
+            notify: true
+          }
+        },
+
+        computeFilter: function(string) {
+        if (!string) {
+          // set filter to null to disable filtering
+          return null;
+        } else {
+          // return a filter function for the current search string
+          string = string.toLowerCase();
+          return function(item) {
+            var japanese_name = item.japanese_name.toLowerCase();
+            var english_name = item.english_name.toLowerCase();
+            return (japanese_name.indexOf(string) != -1 ||
+                english_name.indexOf(string) != -1);
+          };
+        }
+      },
+
+
+      toggleSelection: function(e) {
+       var item = this.$.itemList.itemForElement(e.target);
+       this.$.selector.select(item.japanese_name)
+       this.shoptypes = item.types
+     },
+
+      ready: function() {
+          this.items = [
+            {types: "c1", english_name: "Curry Udon", japanese_name: "カレーうどん"}
+            ,{types: "c2", english_name: "European Curry", japanese_name: "欧風カレー"}
+            ,{types: "c3", english_name: "Soup Curry", japanese_name: "スープカレー"}
+            ,{types: "c4", english_name: "Pakistani Curry", japanese_name: "パキスタンカレー"}
+            ,{types: "c5", english_name: "Nepali Curry", japanese_name: "ネパールカレー"}
+            ,{types: "c6", english_name: "Thai Curry", japanese_name: "タイカレー"}
+            ,{types: "c7", english_name: "Indian Curry", japanese_name: "インドカレー"}
+            ,{types: "c8", english_name: "Curry Rice", japanese_name: "カレーライス"}
+            ,{types: "c9", english_name: "Other Curry", japanese_name: "その他"}
+            ,{types: "c10", english_name: "Curry Chain", japanese_name: "Curry Chain"}
+          ];
+        }
+
+
+      });
+    })();
+  </script>
+</dom-module>

@@ -10,7 +10,8 @@
     "polymer": "Polymer/polymer#^1.2.0",
     "polymerfire": "firebase/polymerfire#^0.9.5",
     "app-storage": "PolymerElements/app-storage#^0.9.4",
-    "google-map": "GoogleWebComponents/google-map#^1.1.11"
+    "google-map": "GoogleWebComponents/google-map#^1.1.11",
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

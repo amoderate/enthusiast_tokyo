@@ -55,9 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        in this file. All other imports should go in elements.html -->
   <link rel="import" href="elements/elements.html">
 
-  <link rel="import" href="bower_components/polymer/polymer.html">
-  <link rel="import" href="bower_components/polymerfire/polymerfire.html">
-
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
 
@@ -128,11 +125,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!-- Application name -->
           <div class="middle middle-container">
             <div class="app-name">Enthusiast Tokyo</div>
+
           </div>
 
           <!-- Application sub title -->
           <div class="bottom bottom-container">
-            <div class="bottom-title">Find your passion</div>
+              <paper-input label="Search 検索" value="{{searchString::input}}"> </paper-input>
+
+
           </div>
         </paper-toolbar>
 
@@ -140,14 +140,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home" tabindex="-1">
-              <paper-material elevation="1">
-
-                <my-list> </my-list>
+                <my-search search-string="{{searchString}}" shoptypes="{{shopTypes}}"> </my-search>
 
             </section>
 
             <section data-route="maps" tabindex="-1">
-
 
                 <template is="dom-bind">
                   <paper-material elevation="1" id="maps">
@@ -189,6 +186,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </template>
             </section>
 
+            <section data-route="food" tabindex="-1">
+              <paper-material elevation="1">
+                <h1 class="page-title" tabindex="-1">{{params.type}}</h1>
+
+
+                <my-list shop-types="{{shopTypes}}"> </my-list>
+
+              </paper-material>
+            </section>
+
           </iron-pages>
         </div>
       </paper-scroll-header-panel>
@@ -220,7 +227,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- build:js scripts/app.js -->
 
-  <script src="scripts/app.js"> </script>
+  <script src="scripts/app.js">
+  Polymer({
+    is: "parent-element",
+    properties: {
+      shopsTypes: {
+        type: String
+        value: "c1"
+      }
+    }
+  </script>
   <!-- endbuild-->
 </body>
 

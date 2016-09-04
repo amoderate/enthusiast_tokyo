@@ -10,46 +10,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="my-list">
 
   <template>
     <style>
-      :host {
-        display: block;
-      }
-
       span {
         @apply(--paper-font-body1);
       }
+
+      section {
+        width: 100%;
+        height: 300px;
+        @apply(--layout-vertical);
+      }
+      section paper-dialog-scrollable {
+        @apply(--layout-flex);
+        }
+
     </style>
 
     <firebase-query id="query"
       path="/features"
       data="{{features}}"
       order-by-child="properties/category"
-      start-at="{{shoptypes}}"
+      start-at="{{shopTypes}}"
       limit-to-last="10"
       >
     </firebase-query>
 
-
-    <ul>
-      <template is="dom-repeat" id="itemList" items="{{items}}" as="item">
-
-        <paper-button focused raised on-click="toggleSelection"><span>{{item.english_name}} {{item.japanese_name}}</paper-button>
-
-      </template>
-    </ul>
     <p class="subhead">New matches:</p>
 
     <template is="dom-repeat" items="[[features]]" as="shop">
 
-      <div><span> <div> {{shop.properties.name}} :  {{shop.properties.full_address}}</div>  </span>
+    <span> <div> {{shop.properties.name}} :  {{shop.properties.full_address}}</div>  </span>
 
     </template>
-
-    <array-selector id="selector" items="{{items}}" selected="{{selected}}" multi toggle></array-selector>
 
   </template>
 
@@ -67,57 +64,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true
           },
 
-          shoptypes:{
+          shopTypes:{
             type: String,
             notify: true
           },
 
           searchString: {
             type: String,
-            value: "c2",
             notify: true
           }
-        },
-
-        computeFilter: function(string) {
-        if (!string) {
-          // set filter to null to disable filtering
-          return null;
-        } else {
-          // return a filter function for the current search string
-          string = string.toLowerCase();
-          return function(item) {
-            var types = item.types.toLowerCase();
-            var english_name = item.english_name.toLowerCase();
-            return (types.indexOf(string) != -1 ||
-                english_name.indexOf(string) != -1);
-          };
         }
-      },
-
-
-      toggleSelection: function(e) {
-       var item = this.$.itemList.itemForElement(e.target);
-       this.$.selector.select(item.japanese_name)
-       this.shoptypes = item.types
-     },
-
-      ready: function() {
-          this.items = [
-            {types: "c1", english_name: "Curry Udon", japanese_name: "カレーうどん"}
-            ,{types: "c2", english_name: "European Curry", japanese_name: "欧風カレー"}
-            ,{types: "c3", english_name: "Soup Curry", japanese_name: "スープカレー"}
-            ,{types: "c4", english_name: "Pakistani Curry", japanese_name: "パキスタンカレー"}
-            ,{types: "c5", english_name: "Nepali Curry", japanese_name: "ネパールカレー"}
-            ,{types: "c6", english_name: "Thai Curry", japanese_name: "タイカレー"}
-            ,{types: "c7", english_name: "Indian Curry", japanese_name: "インドカレー"}
-            ,{types: "c8", english_name: "Curry Rice", japanese_name: "カレーライス"}
-            ,{types: "c9", english_name: "Other Curry", japanese_name: "その他"}
-            ,{types: "c10", english_name: "Curry Chain", japanese_name: "Curry Chain"}
-          ];
-        }
-
-
       });
     })();
   </script>
