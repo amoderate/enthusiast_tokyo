@@ -57,9 +57,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
   <style is="custom-style" include="shared-styles"></style>
-
-
-
 </head>
 
 <body unresolved>
@@ -74,9 +71,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         api-key="AIzaSyBYmC4Xe-kENDLjRKLSXDPkK2t8p6AOdI8"
         auth-domain="obsessed-tokyo.firebaseapp.com"
         database-url="https://obsessed-tokyo.firebaseio.com"
+        storage-bucket ="obsessed-tokyo.appspot.com"
         >
     </firebase-app>
-
 
     <firebase-auth id="auth"
       user="{{user}}"
@@ -103,6 +100,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <a data-route="maps" href="{{baseUrl}}maps">
               <iron-icon icon="maps:map"></iron-icon>
               <span>Map</span>
+            </a>
+
+            <a data-route="add-shop" href="{{baseUrl}}add-shop">
+              <iron-icon icon="icons:create"></iron-icon>
+              <span>Add a shop</span>
             </a>
           </a>
         </paper-menu>
@@ -141,6 +143,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home" tabindex="-1">
                 <my-search search-string="{{searchString}}" shoptypes="{{shopTypes}}"> </my-search>
+            </section>
+
+            <section data-route="add-shop" tabindex"-1">
+              <add-shop></add-shop>
 
             </section>
 
@@ -187,13 +193,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </section>
 
             <section data-route="food" tabindex="-1">
-              <paper-material elevation="1">
+
                 <h1 class="page-title" tabindex="-1">{{params.type}}</h1>
-
-
                 <my-list shop-types="{{shopTypes}}"> </my-list>
 
-              </paper-material>
             </section>
 
           </iron-pages>

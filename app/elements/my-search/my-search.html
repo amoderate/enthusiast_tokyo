@@ -50,18 +50,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
     </style>
 
+    <firebase-query id="query"
+      path="/Posts"
+      data="{{Posts}}"
+      limit-to-last="1"
+      >
+    </firebase-query>
+
     <template is="dom-repeat" id="itemList" items="{{items}}" as="item" filter="{{computeFilter(searchString)}}">
       <span>
-      <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-        <div class="card-content">
-        </div>
-        <div class="card-actions">
-            <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
-            <paper-button focused raised on-click="toggleSelection"> {{item.english_name}} {{item.japanese_name}}</paper-button>
-            </a>
-        </div>
-      </paper-card>
-    </span>
+        <template is="dom-repeat"  id="photoList" items="{{Posts}}" as="post">
+          <paper-card heading="{{item.english_name}} {{item.japanese_name}} {{post.url}}" image="{{post.url}}" alt="Emmental">
+            <div class="card-content">
+            </div>
+            <div class="card-actions">
+                <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
+                <paper-button focused raised on-click="toggleSelection"> See more </paper-button>
+                </a>
+            </div>
+          </paper-card>
+        </span>
+        </template>
+
     </template>
 
     <array-selector id="selector" items="{{items}}" selected="{{selected}}" multi toggle></array-selector>
@@ -110,7 +120,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-
       toggleSelection: function(e) {
        var item = this.$.itemList.itemForElement(e.target);
        this.$.selector.select(item.japanese_name)
@@ -131,7 +140,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ,{types: "c10", english_name: "Curry Chain", japanese_name: "Curry Chain"}
           ];
         }
-
 
       });
     })();

@@ -11,6 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/typography.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+
 
 <dom-module id="my-list">
 
@@ -18,6 +20,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       span {
         @apply(--paper-font-body1);
+      }
+      paper-card {
+        border-radius: 2px;
+        height: 100%;
+        padding: 16px 0 16px 0;
+        width: calc(98.66% - 16px);
+        margin: 16px 16px;
+        background: white;
+      }
+
+      paper-card a {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+
+        text-decoration: none;
+        color: #7DA1BF;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
       }
 
       section {
@@ -40,11 +66,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       >
     </firebase-query>
 
-    <p class="subhead">New matches:</p>
 
     <template is="dom-repeat" items="[[features]]" as="shop">
 
-    <span> <div> {{shop.properties.name}} :  {{shop.properties.full_address}}</div>  </span>
+      <span>
+      <paper-card heading="{{shop.properties.name}}" alt="Emmental">
+        <div class="card-content">
+          <span> <div>{{shop.properties.full_address}} {{class[0].blockhouse.jpeg}}</div>  </span>
+        </div>
+      </paper-card>
+    </span>
 
     </template>
 
