@@ -113,4 +113,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     this.$.auth.signOut();
   };
 
+  app.onLoginSaveProfileData = function(response) {
+    // to implement...
+    // var isNewUser = this.checkNewUserFct(response.user.uid);
+
+    var isNewUser = true;
+
+    console.log("BINDED");
+    console.log(response);
+
+    if (response && isNewUser) {
+      // save the user's profile into the database so we can list users,
+      // use them in Security and Firebase Rules, and show profiles
+      firebase.database().ref('users/' + response.user.uid).set({
+        provider: response.credential.provider,
+        name: response.user.displayName,
+        email: response.user.email,
+        profile_picture: response.user.photoURL,
+      });
+    }
+  }; 
+
 })(document);

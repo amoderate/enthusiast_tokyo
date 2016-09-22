@@ -82,6 +82,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       >
     </firebase-auth>
 
+    <firebase-document
+        id="documentProfile"
+        path="/users/[[user.uid]]"
+        data="{{userProfileData}}">
+    </firebase-document> 
+
 
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
@@ -106,6 +112,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <iron-icon icon="icons:create"></iron-icon>
               <span>Add a shop</span>
             </a>
+
+          <a data-route="profile" href="{{baseUrl}}profile">
+            <iron-icon icon="icons:account-circle"></iron-icon>
+            <span>Profile</span>
+          </a>   
+
           </a>
         </paper-menu>
       </paper-scroll-header-panel>
@@ -120,7 +132,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           <!-- Toolbar icons -->
 
-            <div hidden$="[[!user]]">Welcome, [[user.displayName]]!</div>
+           <!-- <div hidden$="[[!user]]">Welcome, [[user.displayName]]!</div> -->
+            <div style="color:black"> Welcome [[user.displayName]]! </div>
+
             <paper-button hidden$="[[user]]" on-tap="signInWithGoogle">sign in</paper-button>
             <paper-button hidden$="[[!user]]" on-tap="signOut">sign out</paper-button>
 
@@ -198,6 +212,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <my-list shop-types="{{shopTypes}}"> </my-list>
 
             </section>
+
+
+            <section data-route="profile" tabindex="-1">
+                <profile-vcard 
+                  name = {{userProfileData.name}}
+                  image = {{userProfileData.profile_picture}}
+                  profession = {{userProfileData.email}}
+                  description = "Write here your description" 
+                  twitter = "XXX" 
+                  website = "XXX" 
+                  place = "YYY"
+                  >  
+                </profile-vcard>
+            </section>   
+                        
 
           </iron-pages>
         </div>
