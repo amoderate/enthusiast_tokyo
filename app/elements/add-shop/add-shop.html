@@ -13,38 +13,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/iron-icons/image-icons.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/marked-element/marked-element.html">
+
 
 
 <dom-module id="add-shop">
   <template>
     <style include="shared-styles">
-      :host {
-        display: block;
-      }
+      .cafe-header { @apply(--paper-font-headline); }
+      .cafe-light { color: var(--paper-grey-600); }
+      .cafe-location {
+        float: right;
+        font-size: 15px;
+        vertical-align: middle;
+    }
+
+    #text-input{
+      border-radius: 0px;
+      /*height: 100%;*/
+      padding: 0px 0 0px 0;
+      width: 100%;
+      margin: 0px auto;
+      background: white;
+      margin: 0;
+      height: 50vh;
+    }
+
+    iron-icon.star:last-of-type { color: var(--paper-grey-500); }
       paper-card {
+        text-decoration: none;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
         border-radius: 2px;
         height: 100%;
         padding: 16px 0 16px 0;
         width: calc(98.66% - 16px);
         margin: 16px 16px;
         background: white;
-      }
-
-      paper-card a {
-        @apply(--layout-horizontal);
-        @apply(--layout-center);
-
-        text-decoration: none;
-        color: #7DA1BF;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 24px;
-        min-height: 48px;
-        padding: 0 16px;
       }
 
       span,
@@ -57,7 +64,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-toast-background-color: white;
 
       }
-
       paper-progress {
         --paper-progress-transition-duration: 0.08s;
         --paper-progress-transition-timing-function: ease;
@@ -74,21 +80,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
 
+  <paper-card>
 
-    <paper-card heading="upload an image">
-    <div class="card-content">
-      <h4>Upload a photo of your item</h4>
-      <!--uplod image-->
-      <label for="file-input">
-        <paper-icon-button type="file" icon="image:photo-camera"> </iron-icon></paper-icon-button>
-      </label>
+    <div class="card-actions">
+      <p>Upload an Image</p>
+      <div class="horizontal justified">
+        <label for="file-input">
+            <paper-icon-button type="file" icon="image:photo-camera"> </iron-icon></paper-icon-button>
+        </label>
       <paper-toast id="toast" class="fit-bottom">  <paper-progress id="uploader"></paper-progress></paper-toast>
 
       <input id="file-input" type="file" />
+      </div>
+    </div>
+
+    <div class="card-content">
+
+      <p class="cafe-light">
+        <marked-element markdown="{{entry}}">
+            <div class="markdown-html"></div>
+        </marked-element>
+
+      </p>
+
+      <div class="cafe-rating">
+        <iron-autogrow-textarea id="text-input" rows="4" style="max-height: 200px;" value="{{entry::input}}"></iron-autogrow-textarea>
+      </div>
 
     </div>
   </paper-card>
-
 
 
   </template>
@@ -107,6 +127,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         properties: {
           items: {
             type: Array,
+            notify: true
+          },
+          entry: {
+            type: String,
+            value: '## write something!',
             notify: true
           }
         },

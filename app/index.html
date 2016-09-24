@@ -56,7 +56,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="elements/elements.html">
 
   <!-- For shared styles, shared-styles.html import in elements.html -->
-  <style is="custom-style" include="shared-styles"></style>
+  <style is="custom-style" include="shared-styles">
+
+  </style>
 </head>
 
 <body unresolved>
@@ -72,6 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         auth-domain="obsessed-tokyo.firebaseapp.com"
         database-url="https://obsessed-tokyo.firebaseio.com"
         storage-bucket ="obsessed-tokyo.appspot.com"
+        messagingSenderId: "606255433763"
         >
     </firebase-app>
 
@@ -86,7 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         id="documentProfile"
         path="/users/[[user.uid]]"
         data="{{userProfileData}}">
-    </firebase-document> 
+    </firebase-document>
 
 
     <paper-drawer-panel id="paperDrawerPanel">
@@ -116,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a data-route="profile" href="{{baseUrl}}profile">
             <iron-icon icon="icons:account-circle"></iron-icon>
             <span>Profile</span>
-          </a>   
+          </a>
 
           </a>
         </paper-menu>
@@ -213,21 +216,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
-
             <section data-route="profile" tabindex="-1">
-                <profile-vcard 
-                  name = {{userProfileData.name}}
-                  image = {{userProfileData.profile_picture}}
-                  profession = {{userProfileData.email}}
-                  description = "Write here your description" 
-                  twitter = "XXX" 
-                  website = "XXX" 
-                  place = "YYY"
-                  >  
-                </profile-vcard>
-            </section>   
-                        
+            <style>
 
+            .profile-image {
+                width: 180px;
+                height: 170px;
+                background: url('{{userProfileData.profile_picture}}');
+                background-size: cover;
+            }
+            </style>
+
+              <paper-card class="profile" >
+                <div class="profile-content">
+                  <div class="card-content">
+                    <div class="profile-header">{{userProfileData.name}}</div>
+                    <div class="profile-name">{{userProfileData.email}}</div>
+                    <div>My recent posts</div>
+                  </div>
+                  <div class="card-actions">
+                  <my-profile></my-profile>
+                 </div>
+                </div>
+                <div class="profile-image"> </div>
+              </paper-card>
+            </section>
           </iron-pages>
         </div>
       </paper-scroll-header-panel>

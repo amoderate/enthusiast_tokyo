@@ -1,0 +1,107 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/typography.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+
+
+<dom-module id="my-profile">
+  <template>
+
+
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+
+      #toast {
+        --paper-toast-background-color: white;
+
+      }
+
+      paper-progress {
+        --paper-progress-transition-duration: 0.08s;
+        --paper-progress-transition-timing-function: ease;
+        --paper-progress-transition-transition-delay: 0s;
+        --paper-progress-height: 8px;
+        border-radius: 2px;
+        height: 100%;
+        padding: 16px 0 16px 0;
+        width: calc(98.66% - 16px);
+        margin: 16px 16px;
+        background: white;
+      }
+
+
+    </style>
+
+    <paper-button id="update-profile" >
+        <iron-icon icon="social:person"></iron-icon>
+        Updat your profile information
+    </paper-button>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'my-profile',
+
+        listeners: {
+
+          'update-profile.click': 'updateMyProfile'
+
+        },
+
+        properties: {
+
+        },
+
+        updateMyProfile: function(){
+
+          var user = firebase.auth().currentUser;
+
+
+          if (user != null) {
+              user.providerData.forEach(function (profile) {
+                console.log("Sign-in provider: "+profile.providerId);
+                console.log("Provider-specific UID: "+user.uid);
+                console.log("Name: "+profile.displayName);
+                console.log("Email: "+profile.email);
+                console.log("Photo URL: "+profile.photoURL);
+
+                var providers = profile.providerId;
+                var names =  profile.displayName;
+                var emails =  profile.email;
+                var profile_pictures =  profile.photoURL;
+                var updates = {};
+                var userData = {
+                  provider: providers,
+                  user: user.uid,
+                  provider: providers,
+                  name: names,
+                  email: emails,
+                  profile_picture: profile_pictures
+                };
+                updates['/users/' + user.uid] = userData;
+                firebase.database().ref().update(updates);
+              });
+            }
+          },
+
+      });
+    })();
+  </script>
+</dom-module>
