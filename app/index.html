@@ -91,13 +91,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{userProfileData}}">
     </firebase-document>
 
+    <firebase-query id="query"
+      path="/Posts"
+      data="{{Posts}}"
+      limit-to-last="1"
+      >
+    </firebase-query>
+
+
 
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
-
-        <!-- Drawer Toolbar -->
-
 
         <!-- Drawer Content -->
         <paper-menu class="app-menu" attr-for-selected="data-route" selected="[[route]]">
@@ -136,7 +141,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!-- Toolbar icons -->
 
            <!-- <div hidden$="[[!user]]">Welcome, [[user.displayName]]!</div> -->
-            <div style="color:black"> Welcome [[user.displayName]]! </div>
 
             <paper-button hidden$="[[user]]" on-tap="signInWithGoogle">sign in</paper-button>
             <paper-button hidden$="[[!user]]" on-tap="signOut">sign out</paper-button>

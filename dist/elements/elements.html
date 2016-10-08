@@ -26312,7 +26312,7 @@ module.exports = Array.isArray || function (arr) {
   }
   .profile-header { @apply(--paper-font-headline); }
   .profile-name { color: var(--paper-grey-600); margin: 10px 0; }
-  
+
   #mainToolbar.tall .app-name {
     @apply(--paper-font-code2);
     color: #e74C3c;
@@ -27001,7 +27001,7 @@ module.exports = Array.isArray || function (arr) {
       <span>
       <paper-card heading="{{shop.properties.name}}" alt="Emmental">
         <div class="card-content">
-          <span> <div>{{shop.properties.full_address}}</div>  </span>
+          <span> <div>{{shop.properties.full_address}} </div>  </span>
         </div>
       </paper-card>
     </span>
@@ -27049,7 +27049,7 @@ module.exports = Array.isArray || function (arr) {
 
     paper-card {
       border-radius: 2px;
-      height: 100%;
+      height: 20%;
       padding: 16px 0 16px 0;
       width: calc(98.66% - 16px);
       margin: 16px 16px;
@@ -27070,6 +27070,7 @@ module.exports = Array.isArray || function (arr) {
       line-height: 24px;
       min-height: 48px;
       padding: 0 16px;
+      image
     }
     span {
       @apply(--paper-font-body1);
@@ -27082,16 +27083,15 @@ module.exports = Array.isArray || function (arr) {
     <template is="dom-repeat" id="itemList" items="{{items}}" as="item" filter="{{computeFilter(searchString)}}">
       <span>
         <template is="dom-repeat" id="photoList" items="{{Posts}}" as="post">
-          <paper-card heading="{{item.english_name}} {{item.japanese_name}} {{post.url}}" image="{{post.url}}" alt="Emmental">
-            <div class="card-content">
-            </div>
+          <paper-card image="{{post.url}}" alt="Emmental">
+
             <div class="card-actions">
                 <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
-                <paper-button focused="" raised="" on-click="toggleSelection"> See more </paper-button>
+                <paper-button on-click="toggleSelection"> {{item.english_name}}  {{item.japanese_name}} </paper-button>
                 </a>
             </div>
           </paper-card>
-        
+
         </template>
 
     </span></template>
@@ -29467,7 +29467,10 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
 </script>
 <dom-module id="add-shop" assetpath="add-shop/">
+
+
   <template>
+
     <style include="shared-styles">
       .cafe-header { @apply(--paper-font-headline); }
       .cafe-light { color: var(--paper-grey-600); }
@@ -29526,6 +29529,34 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 
     </style>
 
+    <paper-card elevation="0">
+      <paper-tabs selected="{{selected}}">
+        <paper-tab label="Story">
+          <iron-icon icon="icons:subject"></iron-icon>
+          <span>story</span>
+        </paper-tab>
+        <paper-tab label="Logistics">
+          <iron-icon icon="maps:map"></iron-icon>
+          <span>logistics</span>
+        </paper-tab>
+    </paper-tabs>
+
+
+    <iron-pages selected="{{selected}}">
+      <div>
+        <firebase-query id="query" path="/Posts" data="{{Posting}}" limit-to-last="1">
+        </firebase-query>
+        <template is="dom-repeat" items="{{Posting}}" as="posts">
+          <paper-card image="{{posts.url}}" alt="Emmental">
+          </paper-card>
+        </template>
+      </div>
+      <div>
+        <iron-image style="width:400px; height:400px;" sizing="contain" src="http://lorempixel.com/600/400"></iron-image>
+      </div>
+    </iron-pages>
+
+    </paper-card>
 
   <paper-card>
 
@@ -29555,10 +29586,13 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
       </div>
 
     </div>
-  </paper-card>
+
+    <div>
+  
 
 
-  </template>
+
+  </div></paper-card></template>
 
   <script>
     (function() {
@@ -29579,6 +29613,10 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
           entry: {
             type: String,
             value: '## write something!',
+            notify: true
+          },
+          uploaded_image_url:{
+            type: String,
             notify: true
           }
         },
@@ -29608,6 +29646,7 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
             };
             updates['/Posts/' + newPostKey] = postData;
             firebase.database().ref().update(updates);
+            this.uploaded_image_url = downloadURL;
           })
 
           this.$.toast.open();

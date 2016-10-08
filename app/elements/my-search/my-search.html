@@ -25,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       border-radius: 2px;
       height: 20%;
       padding: 16px 0 16px 0;
-      width: calc(50.66% - 100px);
+      width: calc(98.66% - 16px);
       margin: 16px 16px;
       background: white;
     }
@@ -62,18 +62,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <span>
         <template is="dom-repeat"  id="photoList" items="{{Posts}}" as="post">
           <paper-card  image="{{post.url}}" alt="Emmental">
-            <div class="card-content">
-              {{item.english_name}}  {{item.japanese_name}}
-            </div>
             <div class="card-actions">
                 <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
-                <paper-button focused raised on-click="toggleSelection"> See more </paper-button>
+                <paper-button on-click="toggleSelection"> {{item.english_name}}  {{item.japanese_name}} </paper-button>
                 </a>
             </div>
           </paper-card>
-        </span>
         </template>
-
     </template>
 
     <array-selector id="selector" items="{{items}}" selected="{{selected}}" multi toggle></array-selector>
