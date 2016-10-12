@@ -76,12 +76,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           if (user != null) {
               user.providerData.forEach(function (profile) {
-                console.log("Sign-in provider: "+profile.providerId);
-                console.log("Provider-specific UID: "+user.uid);
-                console.log("Name: "+profile.displayName);
-                console.log("Email: "+profile.email);
-                console.log("Photo URL: "+profile.photoURL);
-
                 var providers = profile.providerId;
                 var names =  profile.displayName;
                 var emails =  profile.email;

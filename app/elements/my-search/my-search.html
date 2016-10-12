@@ -52,16 +52,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <firebase-query id="query"
-      path="/Posts"
-      data="{{Posts}}"
+      path="/shops"
+      data="{{Shops}}"
       limit-to-last="1"
       >
     </firebase-query>
 
     <template is="dom-repeat" id="itemList" items="{{items}}" as="item" filter="{{computeFilter(searchString)}}">
       <span>
-        <template is="dom-repeat"  id="photoList" items="{{Posts}}" as="post">
-          <paper-card  image="{{post.url}}" alt="Emmental">
+        <template is="dom-repeat"  id="photoList" items="{{Shops}}" as="post">
+          <paper-card  image="{{post.url}}" alt="Emmental"  elevation="0">
             <div class="card-actions">
                 <a data-route="food" href="{{baseUrl}}food/{{item.english_name}}">
                 <paper-button on-click="toggleSelection"> {{item.english_name}}  {{item.japanese_name}} </paper-button>

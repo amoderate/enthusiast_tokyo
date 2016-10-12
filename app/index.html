@@ -154,8 +154,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <!-- Application sub title -->
           <div class="bottom bottom-container">
               <paper-input label="Search 検索" value="{{searchString::input}}"> </paper-input>
-
-
           </div>
         </paper-toolbar>
 
@@ -163,7 +161,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="content">
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home" tabindex="-1">
-                <my-search search-string="{{searchString}}" shoptypes="{{shopTypes}}"> </my-search>
+                <view-shop search-string="{{searchString}}" shoptypes="{{shopTypes}}"> </view-shop>
             </section>
 
             <section data-route="add-shop" tabindex"-1">
